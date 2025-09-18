@@ -2,6 +2,8 @@ package com.xoslu.tech.bookmanagment;
 
 import com.xoslu.tech.bookmanagment.entity.Book;
 import com.xoslu.tech.bookmanagment.repository.BookRepository;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.info.Info;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,6 +12,13 @@ import org.springframework.context.annotation.Bean;
 import java.util.UUID;
 
 @SpringBootApplication
+@OpenAPIDefinition(
+        info = @Info(
+                title = "API de gestion des livres",
+                version = "1.0",
+                description = "Documentation Swagger pour notre API Spring Boot"
+        )
+)
 public class BookManagmentApplication {
 
     public static void main(String[] args) {

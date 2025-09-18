@@ -1,5 +1,6 @@
 package com.xoslu.tech.bookmanagment.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,7 +12,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Book {
+public class Book extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,8 +20,10 @@ public class Book {
     private String title;
     @Column(nullable = false, length = 100)
     private String author;
-    @Column(length = 100)
+    @Column(length = 100, updatable = false)
     private String isbn; //International Standard Book Number
+    @JsonProperty("published_year")
     private Integer publishedYear;
+    @JsonProperty("pages_number")
     private int pagesNumber;
 }
