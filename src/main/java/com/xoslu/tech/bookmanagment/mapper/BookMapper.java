@@ -15,6 +15,7 @@ public class BookMapper {
         bookResponseDTO.setTitle(book.getTitle());
         bookResponseDTO.setAuthor(book.getAuthor());
         bookResponseDTO.setIsbn(book.getIsbn());
+        bookResponseDTO.setPublishedYear(book.getPublishedYear());
         bookResponseDTO.setPagesNumber(book.getPagesNumber());
         return bookResponseDTO;
     }

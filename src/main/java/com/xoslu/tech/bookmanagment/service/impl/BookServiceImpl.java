@@ -3,6 +3,9 @@ package com.xoslu.tech.bookmanagment.service.impl;
 import com.xoslu.tech.bookmanagment.dto.BookRequestDTO;
 import com.xoslu.tech.bookmanagment.dto.BookResponseDTO;
 import com.xoslu.tech.bookmanagment.entity.Book;
+import com.xoslu.tech.bookmanagment.exception.BadRequestException;
+import com.xoslu.tech.bookmanagment.exception.ConflictException;
+import com.xoslu.tech.bookmanagment.exception.NotFoundException;
 import com.xoslu.tech.bookmanagment.mapper.BookMapper;
 import com.xoslu.tech.bookmanagment.repository.BookRepository;
 import com.xoslu.tech.bookmanagment.service.BookService;
@@ -22,6 +25,15 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookResponseDTO createBook(BookRequestDTO bookRequestDTO) {
+        if (bookRequestDTO.getTitle().isEmpty()) {
+            throw new BadRequestException("Le titre du livre est obligatoire !");
+        }
+        if (bookRequestDTO.getAuthor().isEmpty()) {
+            throw new BadRequestException("L'auteur du livre est obligatoire !");
+        }
+        if (getBookByTitle(bookRequestDTO.getTitle()) != null) {
+            throw new ConflictException("Un livre de titre '"+bookRequestDTO.getTitle()+"' existe déja");
+        }
         Book book = BookMapper.bookRequestDTOToBook(bookRequestDTO);
         book.setIsbn(UUID.randomUUID().toString());
         book = bookRepository.save(book);
@@ -35,7 +47,9 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookResponseDTO getBookById(Long id) {
-        return bookRepository.findById(id).map(BookMapper::bookToBookResponseDTO).orElse(null);
+        return bookRepository.findById(id).map(BookMapper::bookToBookResponseDTO).orElseThrow(
+                () -> new NotFoundException("Le livre d'ID " + id + " est introuvable !")
+        );
     }
 
     @Override

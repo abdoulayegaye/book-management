@@ -1,4 +1,7 @@
 package com.xoslu.tech.bookmanagment.exception;
 
-public class ConflictException {
+public class UnauthorizedException extends RuntimeException {
+    public UnauthorizedException(String message) {
+        super(message);
+    }
 }

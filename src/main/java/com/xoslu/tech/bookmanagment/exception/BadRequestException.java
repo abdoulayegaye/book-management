@@ -1,4 +1,7 @@
 package com.xoslu.tech.bookmanagment.exception;
 
-public class NotFoundException {
+public class BadRequestException extends RuntimeException {
+    public BadRequestException(String message) {
+        super(message);
+    }
 }

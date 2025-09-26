@@ -2,7 +2,6 @@ package com.xoslu.tech.bookmanagment.controller;
 
 import com.xoslu.tech.bookmanagment.dto.BookRequestDTO;
 import com.xoslu.tech.bookmanagment.dto.BookResponseDTO;
-import com.xoslu.tech.bookmanagment.entity.Book;
 import com.xoslu.tech.bookmanagment.service.BookService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -76,5 +75,10 @@ public class BookController {
     )
     public BookResponseDTO getBooksByTitle(@RequestParam("title") String title) {
         return bookService.getBookByTitle(title);
+    }
+
+    @GetMapping("/public")
+    public String endpointPublic() {
+        return "Hello World, je suis un endpoint public. Vous n'avez pas besoin d'authentification !";
     }
 }

@@ -1,4 +1,7 @@
 package com.xoslu.tech.bookmanagment.exception;
 
-public class BadRequestException {
+public class ConflictException extends RuntimeException {
+    public ConflictException(String message) {
+        super(message);
+    }
 }
